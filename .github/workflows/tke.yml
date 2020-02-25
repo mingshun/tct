@@ -11,9 +11,8 @@ env:
   TENCENT_CLOUD_SECRET_KEY: ${{ secrets.TENCENT_CLOUD_SECRET_KEY }}
   TENCENT_CLOUD_PRODUCT_REGION: ${{ secrets.TENCENT_CLOUD_PRODUCT_REGION }}
   TECENT_CLOUD_ACCOUNT_ID: ${{ secrets.TECENT_CLOUD_ACCOUNT_ID }}
-  REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
   REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-  IMAGE: webapp
+  IMAGE: ${{ secrets.IMAGE }}
 
 jobs:
   setup-build-publish-deploy:
@@ -27,9 +26,13 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |        
-        docker build -t "$REGISTRY_URL"/"$IMAGE":"$GITHUB_SHA" .
+        docker build -t "$IMAGE":"$GITHUB_SHA" .
+        
+    # Login TKE Registry
+    - run: |
+        docker login -u "$TECENT_CLOUD_ACCOUNT_ID" -p "$REGISTRY_PASSWORD" "$IMAGE"
 
-    # Push the Docker image to Google Container Registry
+    # Push the Docker image to TKE Registry
     - name: Publish
       run: |
-        docker push $REGISTRY_URL/$IMAGE:$GITHUB_SHA
+        docker push $IMAGE:$GITHUB_SHA
