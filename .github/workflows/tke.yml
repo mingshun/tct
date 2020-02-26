@@ -44,7 +44,7 @@ jobs:
         curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
 
-    - name: Set TKE kubeconfig to ~/.kube/config
+    - name: Set up ~/.kube/config for connecting TKE cluster
       uses: mingshun/tke-cluster-credential-action@master
       with:
         secret_id: ${{ secrets.TENCENT_CLOUD_SECRET_ID }}
