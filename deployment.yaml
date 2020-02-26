@@ -1,0 +1,51 @@
+apiVersion: apps/v1beta2
+kind: Deployment              
+metadata:
+  labels:
+    k8s-app: caddy
+    qcloud-app: caddy
+  name: caddy
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        k8s-app: caddy
+        qcloud-app: caddy
+    sepc: #定义容器模板，该模板可以包含多个容器
+      containers:                                                                   
+        - name: string                                                           
+          image: string 
+          ports:
+            - name: http
+              containerPort: 8080 #对service暴露端口
+    spec:
+      containers:
+      - imagePullPolicy: IfNotPresent
+        name: caddy
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        workingDir: /srv
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: qcloudregistrykey
+      - name: tencenthubkey
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
