@@ -41,10 +41,10 @@ jobs:
     # Set TKE kubeconfig to ~/.kube/config
     - uses: mingshun/tke-cluster-credential-action@master
       with:
-        secret_id: ${{ TENCENT_CLOUD_ACCOUNT_ID }}
-        secret_key: ${{ TENCENT_CLOUD_SECRET_KEY }}
-        tke_region: ${{ TKE_REGION }}
-        cluster_id: ${{ TKE_CLUSTER_ID }}
+        secret_id: $TENCENT_CLOUD_SECRET_ID
+        secret_key: $TENCENT_CLOUD_SECRET_KEY
+        tke_region: $TKE_REGION
+        cluster_id: $TKE_CLUSTER_ID
     
     # Switch to TKE context
     - run: |
