@@ -18,17 +18,11 @@ spec:
       labels:
         k8s-app: caddy
         qcloud-app: caddy
-    sepc: #定义容器模板，该模板可以包含多个容器
-      containers:                                                                   
-        - name: string                                                           
-          image: string 
-          ports:
-            - name: http
-              containerPort: 8080 #对service暴露端口
     spec:
       containers:
       - imagePullPolicy: IfNotPresent
         name: caddy
+        image: caddyserver:0.10.9 
         resources:
           limits:
             cpu: 500m
