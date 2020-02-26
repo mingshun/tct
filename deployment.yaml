@@ -22,7 +22,7 @@ spec:
       containers:
       - imagePullPolicy: IfNotPresent
         name: caddy
-        image: caddyserver:0.10.9 
+        image: my-app
         resources:
           limits:
             cpu: 500m
