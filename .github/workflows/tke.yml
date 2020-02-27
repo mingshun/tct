@@ -50,7 +50,7 @@ jobs:
     
     - name: Switch to TKE context
       run: |
-        kubectl config use-context "$TKE_CLUSTER_ID"-context-default
+        kubectl config use-context ${TKE_CLUSTER_ID}-context-default
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
