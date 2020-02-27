@@ -1,3 +1,3 @@
-FROM caddyserver/caddy:0.10.9
+FROM nginx
 
-ADD asset /asset
+COPY docroot /usr/share/nginx/html
